@@ -93,8 +93,8 @@ export function Capabilities() {
 
     return (
         <section id="features" className="py-24 bg-slate-50 relative overflow-hidden">
-            {/* Background Decor */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+            {/* Background Decor - hidden on mobile for performance */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none hidden md:block">
                 <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl opacity-60"></div>
                 <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-slate-200/50 rounded-full blur-3xl opacity-60"></div>
             </div>

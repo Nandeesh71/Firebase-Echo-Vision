@@ -50,9 +50,13 @@ export function EchoVisionHero() {
 
     return (
         <section className="relative min-h-screen bg-gradient-to-br from-white via-slate-50 to-slate-50 flex items-center justify-center pt-24 pb-20 overflow-hidden">
-            <div className="absolute top-20 right-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl opacity-20 animate-blob"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-200 rounded-full blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-            <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-slate-100 rounded-full blur-3xl opacity-15 animate-blob animation-delay-4000"></div>
+            {/* Background decorations - simplified for mobile */}
+            <div className="absolute top-20 right-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl opacity-20 animate-blob hidden md:block"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-200 rounded-full blur-3xl opacity-20 animate-blob animation-delay-2000 hidden md:block"></div>
+            <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-slate-100 rounded-full blur-3xl opacity-15 animate-blob animation-delay-4000 hidden md:block"></div>
+
+            {/* Lighter mobile background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-white opacity-50 md:hidden"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -102,7 +106,8 @@ export function EchoVisionHero() {
                     {/* Right Product Image */}
                     <div className="flex items-center justify-center lg:justify-end animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
                         <div className="relative w-full h-full flex items-center justify-center group">
-                            <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-300 rounded-3xl blur-3xl opacity-15 group-hover:opacity-30 transition-opacity duration-700 animate-pulse"></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-300 rounded-3xl blur-3xl opacity-15 group-hover:opacity-30 transition-opacity duration-700 hidden md:block"></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-slate-100 to-slate-200 rounded-3xl blur-xl opacity-30 md:hidden"></div>
 
                             {/* Image Container */}
                             <div className="relative transform transition-all duration-700 group-hover:scale-110">
@@ -162,8 +167,9 @@ export function EchoVisionHero() {
                     <div className="bg-white rounded-3xl overflow-hidden shadow-2xl max-w-2xl w-full animate-in scale-in-95 duration-300">
                         <div className="aspect-video bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center relative overflow-hidden group">
                             <video
-                                src=""
+                                src="/EV_Video.mp4"
                                 controls
+                                autoPlay
                                 playsInline
                                 className="w-full h-full object-contain rounded-3xl bg-black"
                                 style={{ maxHeight: '100%', maxWidth: '100%' }}

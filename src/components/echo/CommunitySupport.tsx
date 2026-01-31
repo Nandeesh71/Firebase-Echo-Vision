@@ -45,17 +45,17 @@ export function CommunitySupport() {
             return (
               <div
                 key={index}
-                className={`group relative overflow-hidden p-8 rounded-2xl border ${channel.border} bg-gradient-to-br ${channel.color} hover:shadow-2xl transition-all duration-700 ease-out transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-12 duration-1000`}
+                className={`group relative overflow-hidden p-8 rounded-2xl border ${channel.border} bg-gradient-to-br ${channel.color} md:hover:shadow-2xl transition-all duration-700 ease-out transform md:hover:scale-[1.02] md:hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-12 duration-1000`}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/20 opacity-0 md:group-hover:opacity-100 transition-opacity duration-700"></div>
                 <div className="relative flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-xl bg-white text-slate-900 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-sm">
+                  <div className="p-3 rounded-xl bg-white text-slate-900 md:group-hover:scale-110 md:group-hover:rotate-3 transition-all duration-500 shadow-sm">
                     <Icon className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-slate-800 transition-colors">{channel.title}</h3>
-                    <p className="text-slate-700 leading-relaxed mb-4 group-hover:text-slate-600 transition-colors">{channel.description}</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 md:group-hover:text-slate-800 transition-colors">{channel.title}</h3>
+                    <p className="text-slate-700 leading-relaxed mb-4 md:group-hover:text-slate-600 transition-colors">{channel.description}</p>
                     <a
                       href={href}
                       target={isRepo ? "_blank" : undefined}

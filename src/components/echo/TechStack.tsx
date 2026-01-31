@@ -74,20 +74,20 @@ export function TechStack() {
                     {components.map((category, index) => (
                         <div
                             key={index}
-                            className={`group relative overflow-hidden rounded-2xl border ${category.border} bg-gradient-to-br ${category.color} p-8 hover:shadow-2xl transition-all duration-700 ease-out transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-12 duration-1000`}
+                            className={`group relative overflow-hidden rounded-2xl border ${category.border} bg-gradient-to-br ${category.color} p-8 md:hover:shadow-2xl transition-all duration-700 ease-out transform md:hover:scale-[1.02] md:hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-12 duration-1000`}
                             style={{ animationDelay: `${index * 150}ms` }}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/20 opacity-0 md:group-hover:opacity-100 transition-opacity duration-700"></div>
                             <div className="relative flex items-center gap-3 mb-6">
-                                <span className="text-slate-900 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <span className="text-slate-900 transform md:group-hover:scale-110 md:group-hover:rotate-3 transition-all duration-500">
                                     <category.Icon />
                                 </span>
-                                <h3 className="text-2xl font-bold text-slate-900 group-hover:text-slate-800 transition-colors">{category.name}</h3>
+                                <h3 className="text-2xl font-bold text-slate-900 md:group-hover:text-slate-800 transition-colors">{category.name}</h3>
                             </div>
                             <ul className="space-y-3">
                                 {category.items.map((item, itemIndex) => (
                                     <li key={itemIndex} className="flex items-start gap-3 group/item">
-                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white shadow-sm text-xs font-bold text-slate-900 flex-shrink-0 group-hover/item:scale-110 group-hover/item:rotate-12 transition-all duration-500">
+                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white shadow-sm text-xs font-bold text-slate-900 flex-shrink-0 md:group-hover/item:scale-110 md:group-hover/item:rotate-12 transition-all duration-500">
                                             ✓
                                         </span>
                                         <span className="text-slate-700 font-medium group-hover/item:text-slate-900 transition-colors duration-500">

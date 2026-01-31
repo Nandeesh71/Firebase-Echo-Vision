@@ -28,7 +28,7 @@ function App() {
       <div className="w-full h-px bg-slate-200"></div>
 
       {/* Notify / Stay Updated Section - Separate from CTA */}
-      <section id="notify-form" className="py-20 bg-white relative">
+      <section id="prebook-form" className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-12">
