@@ -29,6 +29,7 @@ export function ContactForm() {
         }
 
         try {
+            // 1. Send Admin Notification (User → Echo Vision Team)
             await emailjs.sendForm(
                 import.meta.env.VITE_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_EMAILJS_TEMPLATE_ID_USER_NOTIFY,
@@ -36,13 +37,30 @@ export function ContactForm() {
                 import.meta.env.VITE_EMAILJS_PUBLIC_KEY
             );
 
+            // 2. Send Auto-Reply Confirmation (Echo Vision → User)
+            await emailjs.sendForm(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID_AUTO_REPLY,
+                currentForm,
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
             setSubmitted(true);
             currentForm.reset();
-            toast.success("You're on the list! We'll notify you soon.");
+            toast.success("You're on the list! Check your inbox for confirmation.");
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('EmailJS Error:', error);
-            toast.error("Something went wrong. Please try again.");
+
+            // Debugging: Check if env vars are loaded
+            if (!import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
+                console.error("Missing EmailJS Public Key. Did you restart the server after creating .env?");
+                toast.error("Configuration Error: Missing Environment Variables. Please restart the dev server.");
+                return;
+            }
+
+            const errorMessage = error?.text || error?.message || "Something went wrong. Please try again.";
+            toast.error(`Error: ${errorMessage}`);
         } finally {
             setLoading(false);
         }
@@ -73,14 +91,6 @@ export function ContactForm() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-slate-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
             <form ref={formRef} onSubmit={handleSubmit} className="relative p-8 flex flex-col gap-5">
-                {/* Header */}
-                <div className="text-center mb-2">
-                    <h3 className="text-2xl font-bold text-slate-900">Stay Updated</h3>
-                    <p className="text-slate-500 text-sm mt-1 leading-relaxed">
-                        Be the first to know about Echo Vision updates, launch announcements, and early access opportunities.
-                    </p>
-                </div>
-
                 {/* Form Fields */}
                 <div className="space-y-4">
                     <div>
