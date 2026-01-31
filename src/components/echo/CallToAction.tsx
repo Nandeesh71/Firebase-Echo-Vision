@@ -3,6 +3,7 @@
 import { useState } from "react"
 
 import "./CollaborateButton.css"
+import CollaborateModal from "./CollaborateCard"
 
 export function CallToAction() {
   const [email, setEmail] = useState("")
@@ -55,27 +56,7 @@ export function CallToAction() {
               </div>
               Collaborate With Us
             </button>
-            {showModal && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-                <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 relative animate-in fade-in duration-300">
-                  <button className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 text-xl font-bold focus:outline-none" onClick={() => setShowModal(false)}>&times;</button>
-                  <h3 className="text-2xl font-bold mb-3 text-slate-900">Collaborate With Us</h3>
-                  <p className="mb-6 text-slate-700 text-lg">
-                    We welcome innovators, researchers, organizations, and partners who share our mission of empowering visually impaired individuals with intelligent assistive technology.<br /><br />
-                    Whether you’re exploring AI integration, accessibility research, hardware collaboration, pilot testing, or investment opportunities. Echo - Vision invites you to join us in advancing a more inclusive future.<br /><br />
-                    Thanks for joining us.
-                  </p>
-                  <button
-                    onClick={() => {
-                      window.location.href = "mailto:echovision.helpdesk.in@gmail.com?subject=Echo%20Vision%20Collaboration%20Inquiry&body=Hello%20Echo%20Vision%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20collaborating%20with%20Echo%20Vision.%20Please%20let%20me%20know%20how%20we%20can%20work%20together.%0D%0A%0D%0AThank%20you!%0D%0A";
-                    }}
-                    className="w-full mt-4 px-8 py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-slate-900 to-slate-700 text-white shadow-md hover:shadow-lg transition-all duration-300"
-                  >
-                    Proceed to Mail
-                  </button>
-                </div>
-              </div>
-            )}
+            <CollaborateModal isOpen={showModal} onClose={() => setShowModal(false)} />
 
           </div>
 

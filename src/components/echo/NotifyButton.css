@@ -1,0 +1,83 @@
+/* Notify Button - Premium Animated */
+.notify-button {
+    font-family: inherit;
+    font-size: 16px;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #ffffff;
+    padding: 0.85em 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+    min-width: 160px;
+    justify-content: center;
+}
+
+.notify-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.4);
+}
+
+.notify-button:active {
+    transform: scale(0.96) translateY(0);
+}
+
+.notify-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.notify-button span {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.notify-button .svg-wrapper-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notify-button .svg-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notify-button svg {
+    display: block;
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
+    width: 20px;
+    height: 20px;
+}
+
+.notify-button:hover .svg-wrapper {
+    animation: fly 0.6s ease-in-out infinite alternate;
+}
+
+.notify-button:hover svg {
+    transform: translateX(1.2em) rotate(25deg) scale(1.1);
+}
+
+.notify-button:hover span {
+    transform: translateX(3em);
+    opacity: 0;
+}
+
+@keyframes fly {
+    from {
+        transform: translateY(0.1em);
+    }
+
+    to {
+        transform: translateY(-0.1em);
+    }
+}
