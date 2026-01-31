@@ -10,9 +10,6 @@ const navigationLinks: NavigationLink[] = [
     href: "#features",
   },
   {
-    // Pricing link removed
-  },
-  {
     name: "Solutions",
     href: "#solutions",
   },

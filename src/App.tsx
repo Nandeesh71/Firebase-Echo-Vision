@@ -8,6 +8,7 @@ import { SustainabilityAccessibility } from "./components/echo/SustainabilityAcc
 import { CommunitySupport } from "./components/echo/CommunitySupport"
 import { CallToAction } from "./components/echo/CallToAction"
 import { ContactForm } from "./components/echo/ContactForm"
+import { BackToTop } from "./components/echo/BackToTop"
 import { Footer } from "./components/generated/Footer"
 import { Toaster } from "sonner"
 
@@ -51,6 +52,7 @@ function App() {
       <div className="w-full h-px bg-slate-200"></div>
 
       <Footer />
+      <BackToTop />
       <Toaster />
     </>
   )

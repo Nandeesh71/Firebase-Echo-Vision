@@ -9,6 +9,10 @@
 
 # production
 /build
+/dist
+/echo-vision-*
+/y
+/.firebase
 
 # debug
 npm-debug.log*

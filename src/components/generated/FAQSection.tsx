@@ -26,11 +26,6 @@ const faqData: FAQ[] = [
       "Echo Vision is for anyone who wants to feel present while being productive — creators balancing inspiration and structure, founders managing priorities without burnout, students seeking focus and calm, or anyone tired of the endless hustle.",
   },
   {
-    // Pricing FAQ removed
-    answer:
-      "We offer three plans: Starter ($12/month) for individuals, Mindful ($24/month) with advanced features, and Teams ($49/month) for collaborative productivity. All plans include a 14-day free trial with no credit card required.",
-  },
-  {
     id: "mobile",
     question: "Is there a mobile app?",
     answer:
