@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 
 interface FolderProps {
     color?: string;
     size?: number;
     items?: React.ReactNode[];
     className?: string;
+}
+
+export interface FolderRef {
+    toggle: () => void;
 }
 
 const darkenColor = (hex: string, percent: number): string => {
@@ -25,7 +29,7 @@ const darkenColor = (hex: string, percent: number): string => {
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
 };
 
-const Folder: React.FC<FolderProps> = ({ color = '#0f172a', size = 1, items = [], className = '' }) => {
+const Folder = forwardRef<FolderRef, FolderProps>(({ color = '#0f172a', size = 1, items = [], className = '' }, ref) => {
     const maxItems = 7;
     const papers = items.slice(0, maxItems);
     while (papers.length < maxItems) {
@@ -37,6 +41,20 @@ const Folder: React.FC<FolderProps> = ({ color = '#0f172a', size = 1, items = []
     const [autoIndex, setAutoIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const intervalRef = useRef<number | null>(null);
+
+    useImperativeHandle(ref, () => ({
+        toggle: () => {
+            setOpen(prev => {
+                const newState = !prev;
+                if (newState) {
+                    setSelectedIndex(null);
+                    setAutoIndex(0);
+                    setIsPaused(false);
+                }
+                return newState;
+            });
+        }
+    }));
 
     const folderBackColor = darkenColor(color, 0.08);
     const paper1 = darkenColor('#ffffff', 0.15);
@@ -201,8 +219,8 @@ const Folder: React.FC<FolderProps> = ({ color = '#0f172a', size = 1, items = []
                                 onMouseDown={e => e.preventDefault()}
                                 onClick={e => handlePaperClick(e, i)}
                                 className={`paper-item absolute bottom-[10%] left-1/2 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer ${!open
-                                        ? 'transform -translate-x-1/2 translate-y-[10%] group-hover:translate-y-0'
-                                        : ''
+                                    ? 'transform -translate-x-1/2 translate-y-[10%] group-hover:translate-y-0'
+                                    : ''
                                     }`}
                                 style={{
                                     width: `${baseSize}%`,
@@ -247,6 +265,6 @@ const Folder: React.FC<FolderProps> = ({ color = '#0f172a', size = 1, items = []
             </div>
         </div>
     );
-};
+});
 
 export default Folder;

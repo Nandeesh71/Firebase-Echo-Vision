@@ -33,24 +33,11 @@ export function ContactForm() {
 
         try {
             // 1. Send Admin Notification (User -> Team)
+            // Auto-reply is configured in the EmailJS dashboard to prevent duplicate calls.
             await emailjs.sendForm(
                 import.meta.env.VITE_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_EMAILJS_TEMPLATE_ID_USER_NOTIFY,
                 currentForm,
-                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-            );
-
-            // 2. Send Auto-Reply (Team -> User)
-            // We pass the same data manually for the second template
-            await emailjs.send(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_EMAILJS_TEMPLATE_ID_AUTO_REPLY,
-                {
-                    user_name: userName,
-                    user_email: userEmail,
-                    message: message,
-                    // Add any other variables your auto-reply template needs
-                },
                 import.meta.env.VITE_EMAILJS_PUBLIC_KEY
             );
 

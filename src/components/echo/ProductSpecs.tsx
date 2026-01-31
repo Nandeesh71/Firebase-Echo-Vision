@@ -1,8 +1,13 @@
 "use client"
 
-import Folder from "./Folder"
+import React, { useRef } from "react"
+import { FolderOpen } from "lucide-react"
+
+import Folder, { FolderRef } from "./Folder"
 
 export function ProductSpecs() {
+  const folderRef = useRef<FolderRef>(null)
+
   const processingUnitPaper = (
     <div className="p-4 h-full flex flex-col justify-center">
       <h3 className="text-sm font-bold text-slate-900 mb-2">Processing Unit</h3>
@@ -62,10 +67,20 @@ export function ProductSpecs() {
           </p>
         </div>
 
-        <div className="relative w-full overflow-x-hidden flex items-center justify-center pb-20 mt-24 sm:mt-20 md:mt-16 lg:mt-12 h-[440px] md:h-[540px] lg:h-[600px]">
-          <div className="transform origin-center scale-[0.9] sm:scale-100 md:scale-[1.5] lg:scale-[2.2]">
-            <Folder size={1} color="#0f172a" className="custom-folder" items={[processingUnitPaper, aiAcceleratorPaper, depthCameraPaper, ultrasonicSensorsPaper, healthSensorPaper, connectivityPaper, batteryPaper]} />
+        <div className="flex flex-col items-center">
+          <div className="relative w-full overflow-x-hidden flex items-center justify-center h-[380px] md:h-[450px] lg:h-[500px]">
+            <div className="transform origin-center scale-[0.8] sm:scale-100 md:scale-[1.3] lg:scale-[1.8]">
+              <Folder ref={folderRef} size={1} color="#0f172a" className="custom-folder" items={[processingUnitPaper, aiAcceleratorPaper, depthCameraPaper, ultrasonicSensorsPaper, healthSensorPaper, connectivityPaper, batteryPaper]} />
+            </div>
           </div>
+
+          <button
+            onClick={() => folderRef.current?.toggle()}
+            className="mt-8 flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-full transition-all duration-300 transform hover:scale-105 active:scale-95 border border-slate-200 shadow-sm"
+          >
+            <FolderOpen className="w-5 h-5" />
+            Click to Open
+          </button>
         </div>
       </div>
     </section>

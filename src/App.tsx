@@ -1,5 +1,6 @@
 import { EchoVisionHeader } from "./components/echo/EchoVisionHeader"
 import { EchoVisionHero } from "./components/echo/EchoVisionHero"
+import { Capabilities } from "./components/echo/Capabilities"
 import { ProductSpecs } from "./components/echo/ProductSpecs"
 import { TechStack } from "./components/echo/TechStack"
 import { SecurityPrivacy } from "./components/echo/SecurityPrivacy"
@@ -15,6 +16,7 @@ function App() {
     <>
       <EchoVisionHeader />
       <EchoVisionHero />
+      <Capabilities />
       <ProductSpecs />
       <TechStack />
       <SecurityPrivacy />
