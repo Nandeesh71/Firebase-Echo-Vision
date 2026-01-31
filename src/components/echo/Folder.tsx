@@ -5,16 +5,32 @@ interface FolderProps {
     size?: number;
     items?: React.ReactNode[];
     className?: string;
+    isOpen?: boolean;
+    onOpenChange?: (open: boolean) => void;
 }
 
 export interface FolderRef {
     toggle: () => void;
 }
 
-const Folder = forwardRef<FolderRef, FolderProps>(({ color = '#0f172a', size = 1, items = [], className = '' }, ref) => {
-    const [open, setOpen] = useState(false);
+const Folder = forwardRef<FolderRef, FolderProps>(({ color = '#0f172a', size = 1, items = [], className = '', isOpen: controlledOpen, onOpenChange }, ref) => {
+    const [internalOpen, setInternalOpen] = useState(false);
+
+    const isControlled = controlledOpen !== undefined;
+    const open = isControlled ? controlledOpen : internalOpen;
+
     const [activeIndex, setActiveIndex] = useState(0);
     const intervalRef = useRef<number | null>(null);
+
+    const setOpen = (value: boolean | ((prev: boolean) => boolean)) => {
+        if (!isControlled) {
+            setInternalOpen(value);
+        }
+        if (onOpenChange) {
+            const nextValue = typeof value === 'function' ? value(open) : value;
+            onOpenChange(nextValue);
+        }
+    };
 
     useImperativeHandle(ref, () => ({
         toggle: () => setOpen(prev => !prev)

@@ -1,11 +1,12 @@
 "use client"
 
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { FolderOpen } from "lucide-react"
 
 import Folder, { FolderRef } from "./Folder"
 
 export function ProductSpecs() {
+  const [isOpen, setIsOpen] = useState(false)
   const folderRef = useRef<FolderRef>(null)
 
   const processingUnitPaper = (
@@ -71,7 +72,15 @@ export function ProductSpecs() {
           {/* Folder Container: Needs enough height for the 'popped out' card not to clip, but not too much empty space */}
           <div className="relative w-full flex items-center justify-center pt-48 pb-8 min-h-[300px]">
             <div className="transform scale-90 sm:scale-100">
-              <Folder ref={folderRef} size={1.2} color="#0f172a" className="custom-folder" items={[processingUnitPaper, aiAcceleratorPaper, depthCameraPaper, ultrasonicSensorsPaper, healthSensorPaper, connectivityPaper, batteryPaper]} />
+              <Folder
+                ref={folderRef}
+                size={1.2}
+                color="#0f172a"
+                className="custom-folder"
+                items={[processingUnitPaper, aiAcceleratorPaper, depthCameraPaper, ultrasonicSensorsPaper, healthSensorPaper, connectivityPaper, batteryPaper]}
+                isOpen={isOpen}
+                onOpenChange={setIsOpen}
+              />
             </div>
           </div>
 
@@ -80,7 +89,7 @@ export function ProductSpecs() {
             className="mt-8 flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-full transition-all duration-300 transform hover:scale-105 active:scale-95 border border-slate-200 shadow-sm"
           >
             <FolderOpen className="w-5 h-5" />
-            Click to Open
+            {isOpen ? "Click to Close" : "Click to Open"}
           </button>
         </div>
       </div>
