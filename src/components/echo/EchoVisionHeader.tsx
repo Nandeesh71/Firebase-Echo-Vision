@@ -22,7 +22,7 @@ export function EchoVisionHeader() {
             {["Features", "Specifications", "Technology", "Community & Support"].map((item, idx) => (
               <a
                 key={idx}
-                href={`#${item.toLowerCase().replace(/ /g, "-").replace("&", "and")}`}
+                href={`#${item.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}`}
                 className="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors duration-200 relative group overflow-hidden"
               >
                 <span className="relative">
@@ -60,12 +60,12 @@ export function EchoVisionHeader() {
               {['Features', 'Specifications', 'Technology', 'Community & Support'].map((item, idx) => (
                 <a
                   key={idx}
-                  href={`#${item.toLowerCase().replace(/ /g, '-').replace('&', 'and')}`}
+                  href={`#${item.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`}
                   className="px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-lg font-medium transition-all duration-200 transform hover:scale-105"
                   onClick={e => {
                     e.preventDefault();
                     setIsMenuOpen(false);
-                    const el = document.getElementById(item.toLowerCase().replace(/ /g, '-').replace('&', 'and'));
+                    const el = document.getElementById(item.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-'));
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >

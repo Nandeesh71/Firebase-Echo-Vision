@@ -23,7 +23,7 @@ export function CommunitySupport() {
   ]
 
   return (
-    <section id="community" className="py-24 bg-gradient-to-b from-slate-50 to-white">
+    <section id="community-support" className="py-24 bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16 animate-in fade-in slide-in-from-top-8 duration-700">
@@ -37,6 +37,11 @@ export function CommunitySupport() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {supportChannels.map((channel, index) => {
             const Icon = channel.Icon
+            const isRepo = channel.title === "Open Development"
+            const href = isRepo
+              ? "https://github.com/Nandeesh71/Firebase-Echo-Vision"
+              : "mailto:echovision.helpdesk.in@gmail.com?subject=Echo%20Vision%20%E2%80%93%20User%20Feedback&body=Hello%20Echo%20Vision%20Team%2C%0AI%20would%20like%20to%20share%20the%20following%20feedback%3A"
+
             return (
               <div
                 key={index}
@@ -51,10 +56,15 @@ export function CommunitySupport() {
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-slate-800 transition-colors">{channel.title}</h3>
                     <p className="text-slate-700 leading-relaxed mb-4 group-hover:text-slate-600 transition-colors">{channel.description}</p>
-                    <button className="inline-flex items-center gap-2 text-slate-900 font-semibold hover:gap-3 transition-all duration-500 group-hover:text-slate-800">
+                    <a
+                      href={href}
+                      target={isRepo ? "_blank" : undefined}
+                      rel={isRepo ? "noopener noreferrer" : undefined}
+                      className="inline-flex items-center gap-2 text-slate-900 font-semibold hover:gap-3 transition-all duration-500 group-hover:text-slate-800"
+                    >
                       {channel.action}
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
