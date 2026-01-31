@@ -58,19 +58,20 @@ export function ProductSpecs() {
   )
 
   return (
-    <section id="specifications" className="pt-28 pb-24 sm:pt-24 sm:pb-24 md:pt-24 md:pb-24 lg:pt-24 lg:pb-24 bg-white">
+    <section id="specifications" className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-in fade-in slide-in-from-top-8 duration-700">
-          <h2 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-4">Technical Specifications</h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+        <div className="text-center mb-8 animate-in fade-in slide-in-from-top-8 duration-700">
+          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-2">Technical Specifications</h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Precision-engineered hardware components working in harmony to deliver reliable assistive technology
           </p>
         </div>
 
         <div className="flex flex-col items-center">
-          <div className="relative w-full overflow-x-hidden flex items-center justify-center h-[380px] md:h-[450px] lg:h-[500px]">
-            <div className="transform origin-center scale-[0.8] sm:scale-100 md:scale-[1.3] lg:scale-[1.8]">
-              <Folder ref={folderRef} size={1} color="#0f172a" className="custom-folder" items={[processingUnitPaper, aiAcceleratorPaper, depthCameraPaper, ultrasonicSensorsPaper, healthSensorPaper, connectivityPaper, batteryPaper]} />
+          {/* Folder Container: Needs enough height for the 'popped out' card not to clip, but not too much empty space */}
+          <div className="relative w-full flex items-center justify-center pt-48 pb-8 min-h-[300px]">
+            <div className="transform scale-90 sm:scale-100">
+              <Folder ref={folderRef} size={1.2} color="#0f172a" className="custom-folder" items={[processingUnitPaper, aiAcceleratorPaper, depthCameraPaper, ultrasonicSensorsPaper, healthSensorPaper, connectivityPaper, batteryPaper]} />
             </div>
           </div>
 
