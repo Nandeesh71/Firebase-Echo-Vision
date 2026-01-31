@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { ShoppingCart, MessageCircle, ArrowRight } from "lucide-react"
+
+import "./CollaborateButton.css"
 
 export function CallToAction() {
   const [email, setEmail] = useState("")
@@ -40,15 +41,19 @@ export function CallToAction() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <button
-              type="button"
-              onClick={() => setShowModal(true)}
-              className="group relative inline-flex items-center justify-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-lg font-bold text-lg shadow-md hover:shadow-xl transition-all duration-300 active:scale-95 overflow-hidden focus:outline-none focus:ring-2 focus:ring-slate-900/30"
-            >
-              <span className="absolute inset-0 bg-gray-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <MessageCircle className="w-5 h-5 relative z-10 group-hover:animate-bounce" />
-              <span className="relative z-10">Collaborate With Us</span>
-              <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+            <button className="continue-application" onClick={() => setShowModal(true)}>
+              <div>
+                <div className="pencil"></div>
+                <div className="folder">
+                  <div className="top">
+                    <svg viewBox="0 0 24 27">
+                      <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                    </svg>
+                  </div>
+                  <div className="paper"></div>
+                </div>
+              </div>
+              Collaborate With Us
             </button>
             {showModal && (
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
