@@ -16,7 +16,6 @@ export function ContactForm() {
         setLoading(true);
 
         const currentForm = formRef.current;
-
         if (!currentForm) return;
 
         const formData = new FormData(currentForm);
@@ -29,7 +28,7 @@ export function ContactForm() {
         }
 
         try {
-            // 1. Send Admin Notification (User → Echo Vision Team)
+            // 1. Send Admin Notification (User → Echo Vision Team) - CRITICAL
             await emailjs.sendForm(
                 import.meta.env.VITE_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_EMAILJS_TEMPLATE_ID_USER_NOTIFY,
@@ -37,54 +36,32 @@ export function ContactForm() {
                 import.meta.env.VITE_EMAILJS_PUBLIC_KEY
             );
 
-            // 2. Send Auto-Reply Confirmation (Echo Vision → User)
-            await emailjs.sendForm(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_EMAILJS_TEMPLATE_ID_AUTO_REPLY,
-                currentForm,
-                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-            );
+            // 2. Send Auto-Reply Confirmation (Echo Vision → User) - NON-BLOCKING
+            // Wrapped separately so a failure here doesn't block user success feedback
+            try {
+                await emailjs.sendForm(
+                    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID_AUTO_REPLY,
+                    currentForm,
+                    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                );
+            } catch (autoReplyError) {
+                // Log but don't fail the submission
+                console.warn('Auto-reply email failed (non-critical):', autoReplyError);
+            }
 
             setSubmitted(true);
             currentForm.reset();
-            toast.success("You're on the list! Check your inbox for confirmation.");
+            // No toast, inline feedback only
 
         } catch (error: any) {
             console.error('EmailJS Error:', error);
-
-            // Debugging: Check if env vars are loaded
-            if (!import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
-                console.error("Missing EmailJS Public Key. Did you restart the server after creating .env?");
-                toast.error("Configuration Error: Missing Environment Variables. Please restart the dev server.");
-                return;
-            }
-
             const errorMessage = error?.text || error?.message || "Something went wrong. Please try again.";
             toast.error(`Error: ${errorMessage}`);
         } finally {
             setLoading(false);
         }
     };
-
-    if (submitted) {
-        return (
-            <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 min-h-[350px] flex flex-col items-center justify-center text-center animate-in fade-in duration-500">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                    <CheckCircle className="w-8 h-8 text-green-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">You're All Set!</h3>
-                <p className="text-slate-600 max-w-xs mx-auto leading-relaxed">
-                    Thank you for joining the Echo Vision community. We'll notify you when we have important updates or launch announcements.
-                </p>
-                <button
-                    onClick={() => setSubmitted(false)}
-                    className="mt-6 text-slate-900 font-semibold hover:text-slate-700 underline underline-offset-4"
-                >
-                    Subscribe another email
-                </button>
-            </div>
-        );
-    }
 
     return (
         <div className="w-full max-w-lg mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden relative group">
@@ -100,9 +77,9 @@ export function ContactForm() {
                             type="text"
                             name="user_name"
                             required
-                            disabled={loading}
+                            disabled={loading || submitted}
                             placeholder="Full Name"
-                            className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all font-medium"
+                            className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all font-medium disabled:opacity-50"
                         />
                     </div>
 
@@ -113,9 +90,9 @@ export function ContactForm() {
                             type="email"
                             name="user_email"
                             required
-                            disabled={loading}
+                            disabled={loading || submitted}
                             placeholder="Email Address"
-                            className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all font-medium"
+                            className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all font-medium disabled:opacity-50"
                         />
                     </div>
 
@@ -124,25 +101,31 @@ export function ContactForm() {
                         <textarea
                             id="message"
                             name="message"
-                            disabled={loading}
+                            disabled={loading || submitted}
                             placeholder="Any specific interest or feedback? (Optional)"
                             rows={3}
-                            className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all resize-none font-medium"
+                            className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-300 transition-all resize-none font-medium disabled:opacity-50"
                         />
                     </div>
                 </div>
 
                 {/* Animated Submit Button */}
-                <div className="pt-2 flex justify-center">
+                <div className="pt-2 flex flex-col items-center">
                     <button
                         type="submit"
-                        disabled={loading}
-                        className="notify-button"
+                        disabled={loading || submitted}
+                        className={`notify-button ${submitted ? 'bg-green-600' : ''}`}
+                        style={submitted ? { background: '#10b981', cursor: 'default', transform: 'none', boxShadow: 'none' } : {}}
                     >
                         {loading ? (
                             <>
                                 <Loader2 className="w-5 h-5 animate-spin" />
                                 <span>Processing...</span>
+                            </>
+                        ) : submitted ? (
+                            <>
+                                <CheckCircle className="w-5 h-5 text-white" />
+                                <span>Notified</span>
                             </>
                         ) : (
                             <>
@@ -161,12 +144,25 @@ export function ContactForm() {
                             </>
                         )}
                     </button>
+
+                    {/* Inline Confirmation when Submitted */}
+                    {submitted && (
+                        <div className="mt-6 text-center animate-in fade-in slide-in-from-top-2 duration-500">
+                            <h4 className="text-sm font-bold text-slate-900 mb-1">Request Received</h4>
+                            <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
+                                Thank you for your interest in Echo Vision.
+                                You will be notified when we share launch updates, early access opportunities, or important announcements.
+                            </p>
+                        </div>
+                    )}
                 </div>
 
-                {/* Privacy Assurance */}
-                <p className="text-xs text-slate-400 text-center mt-1">
-                    Your information is secure. We only use it to send you Echo Vision updates.
-                </p>
+                {/* Privacy Assurance (Only show when not submitted to reduce clutter) */}
+                {!submitted && (
+                    <p className="text-xs text-slate-400 text-center mt-1">
+                        Your information is secure. We only use it to send you Echo Vision updates.
+                    </p>
+                )}
             </form>
         </div>
     );
